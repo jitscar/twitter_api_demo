@@ -12,6 +12,10 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
   end
 
+  describe "associations" do
+    it { is_expected.to have_many(:messages) }
+  end
+
   describe "object" do
     it "can be created" do
       expect { user.save! }.to change(User, :count).by(1)
