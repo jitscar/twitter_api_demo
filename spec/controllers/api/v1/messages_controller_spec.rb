@@ -1,12 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe API::V1::MessagesController, type: :controller do
-  let(:user) {
-    FactoryGirl.create(:user)
-  }
-
   let(:valid_attributes) {
-    FactoryGirl.attributes_for(:message, user_id: user.id)
+    FactoryGirl.attributes_for(:message,  user_id: FactoryGirl.create(:user).id)
   }
 
   let(:invalid_attributes) {
@@ -39,6 +35,11 @@ RSpec.describe API::V1::MessagesController, type: :controller do
       it "assigns a newly created but unsaved message as @message" do
         post :create, { message: invalid_attributes, format: :json  }
         expect(assigns(:message)).to be_a_new(Message)
+      end
+
+      it "returns unprocessable_entity status" do
+        put :create, { message: invalid_attributes, format: :json }
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

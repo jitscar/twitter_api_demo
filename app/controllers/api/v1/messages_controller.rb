@@ -13,9 +13,9 @@ class API::V1::MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.json { render json: @message }
+        format.json { render json: @message, status: :created }
       else
-        format.json { render json: @message.errors }
+        format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
   end
