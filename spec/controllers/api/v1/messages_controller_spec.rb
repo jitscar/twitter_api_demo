@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe API::V1::MessagesController, type: :controller do
+  let(:user) {
+    FactoryGirl.create(:user)
+  }
+
   let(:valid_attributes) {
-    FactoryGirl.attributes_for(:message)
+    FactoryGirl.attributes_for(:message, user_id: user.id)
   }
 
   let(:invalid_attributes) {
