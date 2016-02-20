@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
+  let(:user) {
+    FactoryGirl.create(:user)
+  }
+
   let(:message) {
-    FactoryGirl.build(:message)
+    FactoryGirl.build(:message, user_id: user.id)
   }
 
   describe "db structure" do

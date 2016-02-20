@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :message do
-    user_id 1
+    user
     content Faker::Lorem.characters(140)
   end
 end
