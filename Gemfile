@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 gem 'rails', '4.2.5'
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 0.15', group: [:development, :production]
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -25,7 +25,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
-  gem 'sqlite3'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
@@ -37,6 +36,7 @@ group :development do
 end
 
 group :test do
+  gem 'sqlite3'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
 end
 
