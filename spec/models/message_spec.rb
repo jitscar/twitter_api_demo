@@ -9,6 +9,10 @@ RSpec.describe Message, type: :model do
     FactoryGirl.build(:message, user_id: user.id)
   }
 
+  let(:message_too_long) {
+    FactoryGirl.build(:message, :too_long, user_id: user.id)
+  }
+
   describe "db structure" do
     it { is_expected.to have_db_column(:user_id).of_type(:integer) }
     it { is_expected.to have_db_column(:content).of_type(:string) }
@@ -40,6 +44,10 @@ RSpec.describe Message, type: :model do
     it "without content" do
       message.content = nil
       expect(message).to be_invalid
+    end
+
+    it "with too long content" do
+      expect(message_too_long).to be_invalid
     end
   end
 
