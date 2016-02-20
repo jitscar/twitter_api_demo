@@ -20,3 +20,7 @@ config/database.yml
 
 # Ignore simplecov folder
 coverage
+
+# Ignore test db
+db/test.sqlite3
+
