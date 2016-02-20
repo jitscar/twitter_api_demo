@@ -38,5 +38,6 @@ end
 group :test do
   gem 'sqlite3'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+  gem 'simplecov', :require => false
 end
 

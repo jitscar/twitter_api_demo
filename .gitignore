@@ -17,3 +17,6 @@
 
 # Ignore config files
 config/database.yml
+
+# Ignore simplecov folder
+coverage
