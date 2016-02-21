@@ -9,6 +9,10 @@ RSpec.describe API::V1::MessagesController, type: :controller do
     { content: nil, user_id: nil }
   }
 
+  let!(:message) {
+    Message.create(valid_attributes)
+  }
+
   describe "GET #index" do
     it "returns http success" do
       get :index, format: :json
@@ -40,6 +44,16 @@ RSpec.describe API::V1::MessagesController, type: :controller do
       it "returns unprocessable_entity status" do
         put :create, { message: invalid_attributes, format: :json }
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe "PUT #mark_as_liked" do
+    context "with valid params" do
+     it "updates the requested message with like true" do
+        put :mark_as_liked, { id: message.id, format: :json  }
+        message.reload
+        expect(message.like).to be_truthy
       end
     end
   end

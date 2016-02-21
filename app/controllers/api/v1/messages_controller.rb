@@ -20,6 +20,14 @@ class API::V1::MessagesController < ApplicationController
     end
   end
 
+  def mark_as_liked
+    @message = Message.find(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @message, status: :ok } if @message.update(like: true)
+    end
+  end
+
   private
 
   def message_params
