@@ -26,11 +26,6 @@ RSpec.describe Message, type: :model do
     it "can be created" do
       expect { message.save! }.to change(Message, :count).by(1)
     end
-
-    it "can be mark as favorited" do
-      message.favorite
-      expect { message.save! }.to change(message.favorite_messages, :count).by(1)
-    end
   end
 
   describe "is invalid" do

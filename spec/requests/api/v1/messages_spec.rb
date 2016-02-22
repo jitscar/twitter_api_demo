@@ -38,6 +38,7 @@ describe 'Messages API' do
 
       expect(response).to have_http_status(:ok)
       expect(Message.first.favorite_messages.count).to eq 1
+      expect(Message.first.favorited_by.count).to eq 1
     end
   end
 end

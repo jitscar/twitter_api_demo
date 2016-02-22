@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
+  let(:message) { FactoryGirl.create(:message, user: user) }
 
   describe "db structure" do
     it { is_expected.to have_db_column(:email).of_type(:string) }
@@ -23,6 +24,20 @@ RSpec.describe User, type: :model do
 
     it "has an array of messages" do
       expect(user.messages).to eq([])
+    end
+  end
+
+  describe "addition message to favorited" do
+    let(:add_message_to_favorited) { -> { user.favorite(message) } }
+
+    it "changes the favorite messages count" do
+      user.save!
+      expect(add_message_to_favorited).to change(message.favorite_messages, :count).by(1)
+    end
+
+    it "changes the count of users who favorited" do
+      user.save!
+      expect(add_message_to_favorited).to change(message.favorited_by, :count).by(1)
     end
   end
 

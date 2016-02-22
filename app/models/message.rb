@@ -5,8 +5,4 @@ class Message < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
-
-  def favorite
-    favorite_messages << FavoriteMessage.new
-  end
 end
