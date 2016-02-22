@@ -20,11 +20,12 @@ class API::V1::MessagesController < ApplicationController
     end
   end
 
-  def mark_as_liked
+  def favorite
     @message = Message.find(params[:id])
+    @message.favorite
 
     respond_to do |format|
-      format.json { render json: @message, status: :ok } if @message.update(like: true)
+      format.json { render json: @message, status: :ok } if @message.save
     end
   end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Messages API' do
   describe "GET /messages" do
-    it "gets a list of messages" do
+    it "gets list of messages" do
       FactoryGirl.create_list(:message, 10)
 
       get '/api/v1/messages'
@@ -15,7 +15,7 @@ describe 'Messages API' do
   end
 
   describe "POST /messages" do
-    it "creates a message" do
+    it "creates message" do
       params = {
           message: {
               content: 'Hello, beaver!',
@@ -30,14 +30,14 @@ describe 'Messages API' do
     end
   end
 
-  describe "PUT /mark_as_liked" do
-    it "updates a message with like true" do
+  describe "PUT /favorite" do
+    it "updates message as favorited" do
       FactoryGirl.create(:message, user_id: FactoryGirl.create(:user).id)
 
-      put "/api/v1/messages/#{Message.first.id}/mark_as_liked"
+      put "/api/v1/messages/#{Message.first.id}/favorite"
 
       expect(response).to have_http_status(:ok)
-      expect(Message.first.like).to be_truthy
+      expect(Message.first.favorite_messages.count).to eq 1
     end
   end
 end

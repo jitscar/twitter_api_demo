@@ -48,12 +48,12 @@ RSpec.describe API::V1::MessagesController, type: :controller do
     end
   end
 
-  describe "PUT #mark_as_liked" do
+  describe "PUT #favorite" do
     context "with valid params" do
-     it "updates the requested message with like true" do
-        put :mark_as_liked, { id: message.id, format: :json  }
-        message.reload
-        expect(message.like).to be_truthy
+     it "updates the requested message as favorited" do
+       expect {
+         put :favorite, { id: message.id, format: :json  }
+       }.to change(message.favorite_messages, :count).by(1)
       end
     end
   end

@@ -22,20 +22,4 @@ RSpec.describe FavoriteMessage, type: :model do
       expect { favorite_message.save! }.to change(FavoriteMessage, :count).by(1)
     end
   end
-
-  describe "is invalid" do
-    it "without user" do
-      favorite_message.user = nil
-      expect(favorite_message).to be_invalid
-    end
-
-    it "without message" do
-      favorite_message.message = nil
-      expect(favorite_message).to be_invalid
-    end
-  end
-
-  it "is completely valid" do
-    expect(favorite_message).to be_valid
-  end
 end

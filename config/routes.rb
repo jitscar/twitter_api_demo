@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :messages, only: [:index, :create] do
-        member do
-          put :mark_as_liked
-        end
+        put :favorite, on: :member
       end
     end
   end
