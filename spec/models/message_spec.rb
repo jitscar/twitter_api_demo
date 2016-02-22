@@ -1,17 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
-  let(:user) {
-    FactoryGirl.create(:user)
-  }
-
-  let(:message) {
-    FactoryGirl.build(:message, user_id: user.id)
-  }
-
-  let(:message_too_long) {
-    FactoryGirl.build(:message, :too_long, user_id: user.id)
-  }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:message) { FactoryGirl.build(:message, user: user) }
+  let(:message_too_long) { FactoryGirl.build(:message, :too_long, user: user) }
 
   describe "db structure" do
     it { is_expected.to have_db_column(:user_id).of_type(:integer) }
@@ -23,6 +15,8 @@ RSpec.describe Message, type: :model do
 
   describe "associations" do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:favorite_messages) }
+    it { is_expected.to have_many(:favorited_by).through(:favorite_messages).source(:user) }
   end
 
   describe "validations" do

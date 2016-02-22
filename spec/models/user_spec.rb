@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) {
-    FactoryGirl.build(:user)
-  }
+  let(:user) { FactoryGirl.build(:user) }
 
   describe "db structure" do
     it { is_expected.to have_db_column(:email).of_type(:string) }
@@ -14,6 +12,8 @@ RSpec.describe User, type: :model do
 
   describe "associations" do
     it { is_expected.to have_many(:messages) }
+    it { is_expected.to have_many(:favorite_messages) }
+    it { is_expected.to have_many(:favorites).through(:favorite_messages).source(:message) }
   end
 
   describe "object" do
