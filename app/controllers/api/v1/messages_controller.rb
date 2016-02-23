@@ -22,7 +22,7 @@ class API::V1::MessagesController < ApplicationController
 
   def favorite
     @message = Message.find(params[:id])
-    User.current.favorite(@message)
+    User.current.add_message_to_favorites(@message)
 
     respond_to do |format|
       format.json { render json: @message, status: :ok }

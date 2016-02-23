@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  scope :messages_count_top, -> { order('users.messages_count DESC').limit(5) }
+
   has_many :messages
   has_many :favorite_messages
   has_many :favorites, through: :favorite_messages, source: :message
@@ -14,7 +16,7 @@ class User < ActiveRecord::Base
     Thread.current[:user] = user
   end
 
-  def favorite(message)
+  def add_message_to_favorites(message)
     favorites << message
   end
 end

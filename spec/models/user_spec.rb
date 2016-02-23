@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:messages_count).of_type(:integer) }
   end
 
   describe "associations" do
@@ -28,16 +29,16 @@ RSpec.describe User, type: :model do
   end
 
   describe "addition message to favorited" do
-    let(:add_message_to_favorited) { -> { user.favorite(message) } }
+    let(:add_message_to_favorites) { -> { user.add_message_to_favorites(message) } }
 
     it "changes the favorite messages count" do
       user.save!
-      expect(add_message_to_favorited).to change(message.favorite_messages, :count).by(1)
+      expect(add_message_to_favorites).to change(message.favorite_messages, :count).by(1)
     end
 
     it "changes the count of users who favorited" do
       user.save!
-      expect(add_message_to_favorited).to change(message.favorited_by, :count).by(1)
+      expect(add_message_to_favorites).to change(message.favorited_by, :count).by(1)
     end
   end
 

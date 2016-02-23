@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many :favorite_messages
   has_many :favorited_by, through: :favorite_messages, source: :user
 
