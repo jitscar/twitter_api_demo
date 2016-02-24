@@ -27,6 +27,11 @@ RSpec.describe Message, type: :model do
     it 'can be created' do
       expect { message.save! }.to change(Message, :count).by(1)
     end
+
+    it 'has favorites counter cache' do
+      message.save!
+      expect { user.add_message_to_favorites(message) }.to change { Message.last.favorites_count }.by(1)
+    end
   end
 
   describe 'is invalid' do

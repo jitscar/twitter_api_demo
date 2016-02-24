@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
-  let(:message) { FactoryGirl.create(:message, user: user) }
+  let(:message) { FactoryGirl.build(:message, user: user) }
 
   describe 'db structure' do
     it { is_expected.to have_db_column(:email).of_type(:string) }
@@ -27,6 +27,11 @@ RSpec.describe User, type: :model do
     it 'has an array of messages' do
       expect(user.messages).to eq([])
     end
+
+    it 'has messages counter cache' do
+      user.save!
+      expect { message.save! }.to change { User.last.messages_count }.by(1)
+    end
   end
 
   describe 'addition message to favorited' do
@@ -34,11 +39,13 @@ RSpec.describe User, type: :model do
 
     it 'changes the favorite messages count' do
       user.save!
+      message.save!
       expect(add_message_to_favorites).to change(message.favorite_messages, :count).by(1)
     end
 
     it 'changes the count of users who favorited' do
       user.save!
+      message.save!
       expect(add_message_to_favorites).to change(message.favorited_by, :count).by(1)
     end
   end
