@@ -10,6 +10,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:messages_count).of_type(:integer) }
+    it { is_expected.to have_db_column(:avg_rating).of_type(:decimal) }
   end
 
   describe "associations" do
