@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   scope :messages_count_top, -> { order('users.messages_count DESC').limit(5) }
-  scope :favorites_avg_rating_top, -> { order('users.avg_rating DESC').limit(5) }
+  scope :avg_rating_top, -> { order('users.avg_rating DESC').limit(5) }
 
   def add_message_to_favorites(message)
     favorites << message

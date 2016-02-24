@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'statistics/index'
+  root 'statistics#index'
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
