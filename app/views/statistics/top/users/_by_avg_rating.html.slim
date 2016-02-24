@@ -1,0 +1,14 @@
+h2 = t('index.top.users.by_avg_rating.header')
+table
+  thead
+    tr
+      th = t('active_record.user.name')
+      th = t('active_record.user.avg_rating')
+  thead
+  tbody
+    - if @users_by_avg_rating.any?
+      - @users_by_avg_rating.each do |user|
+        tr
+          td = user.name
+          td = format_avg_rating(user.avg_rating)
+

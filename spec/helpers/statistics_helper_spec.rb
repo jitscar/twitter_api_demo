@@ -1,15 +1,12 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the StatisticsHelper. For example:
-#
-# describe StatisticsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe StatisticsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe StatisticsHelper do
+    describe "string concat" do
+      it "rounds number value with 2 digits after" do
+        expect(helper.format_avg_rating(8.512)).to eq(8.51)
+        expect(helper.format_avg_rating(8.526)).to eq(8.53)
+      end
+    end
+  end
 end

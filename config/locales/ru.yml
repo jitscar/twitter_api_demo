@@ -1,0 +1,22 @@
+ru:
+  active_record:
+    user:
+      name: ФИО
+      messages_count: Количество сообщений
+      avg_rating: Средний рейтинг сообщений
+    message:
+      content: Содержание
+      favorites_count: Количество голосов
+  index:
+    header: Статистика пользователей
+    top:
+      users:
+        by_messages_count:
+          header: Лучшие графоманы
+        by_avg_rating:
+          header: Лучшие по коэффиценту Петросяна
+      messages:
+        by_favorites_count:
+          header: Лучшие юмористы и их юмор
+
+
