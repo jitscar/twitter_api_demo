@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Messages API' do
-  describe "GET /messages" do
-    it "gets list of messages" do
+  describe 'GET /messages' do
+    it 'gets list of messages' do
       FactoryGirl.create_list(:message, 10)
 
       get '/api/v1/messages'
@@ -14,13 +14,13 @@ describe 'Messages API' do
     end
   end
 
-  describe "POST /messages" do
-    it "creates message" do
+  describe 'POST /messages' do
+    it 'creates message' do
       params = {
-          message: {
-              content: 'Hello, beaver!',
-              user_id: FactoryGirl.create(:user).id
-          }
+        message: {
+          content: 'Hello, beaver!',
+          user_id: FactoryGirl.create(:user).id
+        }
       }.to_json
 
       post '/api/v1/messages', params, request_headers
@@ -30,8 +30,8 @@ describe 'Messages API' do
     end
   end
 
-  describe "PUT /favorite" do
-    it "updates message as favorited" do
+  describe 'PUT /favorite' do
+    it 'updates message as favorited' do
       FactoryGirl.create(:message, user_id: FactoryGirl.create(:user).id)
 
       put "/api/v1/messages/#{Message.first.id}/favorite"

@@ -1,6 +1,6 @@
 class AddFavoritesCounterToMessages < ActiveRecord::Migration
   def self.up
-    add_column :messages, :favorites_count, :integer, :default => 0
+    add_column :messages, :favorites_count, :integer, default: 0
 
     Message.reset_column_information
     Message.find_each do |message|
