@@ -1,4 +1,4 @@
-class API::V1::MessagesController < ApplicationController
+class API::V1::MessagesController < ApiController
 
   def index
     @messages = Message.all
