@@ -1,0 +1,13 @@
+h2 = t('index.top.users.by_messages_count.header')
+table
+  thead
+    tr
+      th = t('active_record.user.name')
+      th = t('active_record.user.messages_count')
+  thead
+  tbody
+    - if @users_by_messages_count.any?
+      - @users_by_messages_count.each do |user|
+        tr
+          td = user.name
+          td = user.messages_count

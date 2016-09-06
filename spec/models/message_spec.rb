@@ -1,0 +1,56 @@
+require 'rails_helper'
+
+RSpec.describe Message, type: :model do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:message) { FactoryGirl.build(:message, user: user) }
+  let(:message_too_long) { FactoryGirl.build(:message, :too_long, user: user) }
+
+  describe 'db structure' do
+    it { is_expected.to have_db_column(:user_id).of_type(:integer) }
+    it { is_expected.to have_db_column(:content).of_type(:string) }
+    it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:favorites_count).of_type(:integer) }
+  end
+
+  describe 'associations' do
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:favorite_messages) }
+    it { is_expected.to have_many(:favorited_by).through(:favorite_messages).source(:user) }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_length_of(:content).is_at_most(140) }
+  end
+
+  describe 'object' do
+    it 'can be created' do
+      expect { message.save! }.to change(Message, :count).by(1)
+    end
+
+    it 'has favorites counter cache' do
+      message.save!
+      expect { user.add_message_to_favorites(message) }.to change { Message.last.favorites_count }.by(1)
+    end
+  end
+
+  describe 'is invalid' do
+    it 'without user' do
+      message.user = nil
+      expect(message).to be_invalid
+    end
+
+    it 'without content' do
+      message.content = nil
+      expect(message).to be_invalid
+    end
+
+    it 'with too long content' do
+      expect(message_too_long).to be_invalid
+    end
+  end
+
+  it 'is completely valid' do
+    expect(message).to be_valid
+  end
+end
